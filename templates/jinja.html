@@ -26,10 +26,8 @@
 											   	  </select>
 												  	</label>
 			 <input type="hidden" value= "{{automerkit_json | escape}}" name="automerkit_json"/>
-
 		 </form>
-				 <script>
-					 console.log("automerkit:json", {{automerkit_json}});
-					 console.log("Lkm:", {{ lkm}});
-				</script>
+         <form action="/logout" method="post">
+            <input type="submit" name="logout" value="logout"/>
+         </form>
 	 {% endblock %}

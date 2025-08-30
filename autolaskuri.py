@@ -4,6 +4,7 @@ from flask import Flask, request, Response, render_template, make_response, sess
 import hashlib
 import json
 import urllib
+from functools import wraps
 app = Flask(__name__)
 
 app.config.update(
@@ -13,7 +14,19 @@ app.config.update(
 app.secret_key = b"\x98c\xaf\xf3`q\x8e\x1a\xe3\x91\xf5c\xe9O\xd72\x98EG'N\x1d&\x17"
 
 
+def auth(f):
+    """
+    Tämä decorator hoitaa kirjautumisen tarkistamisen ja ohjaa tarvittaessa kirjautumissivulle
+    """
+    @wraps(f)
+    def decorated(*args, **kwargs):
+        if not 'kirjautunut' in session:
+            return redirect(url_for('kirjaudu'))
+        return f(*args, **kwargs)
+    return decorated
+
 @app.route('/',methods=['GET'])
+@auth
 def autolaskuri():
 
     try:
@@ -92,6 +105,12 @@ def kirjaudu():
     response.headers['Content-Type'] = 'application/xhtml+xml; charset=utf-8'
     return response
 
+@app.route('/logout', methods=['POST'])
+def logout():
+    session.pop('laskuri', None)
+    session.pop('kirjautunut', None)
+    return redirect(url_for('kirjaudu'))
+
 
 @app.route('/nollaa')
 def nollaa():
@@ -99,3 +118,4 @@ def nollaa():
     # url_for-metodilla voidaan muodostaa osoite haluttuun funktioon. redirect taas ohjaa suoraan tälle sivulle joten
     # nollaa-osoite ei tarvitse omaa sisältöä
     return redirect(url_for('autolaskuri'))
+
