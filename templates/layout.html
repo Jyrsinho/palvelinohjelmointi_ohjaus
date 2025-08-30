@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="fi" lang="fi">
+	  <head>
+		      <title>{% block title %}Mallisivu{% endblock %}</title>
+		        </head>
+			  <body>
+				      <div id="content">
+					            {% block content %}{% endblock %}
+						        </div>
+							    <div id="footer">
+								          {% block footer %}
+									          TIES4080
+										        {% endblock %}
+											    </div>
+                      <!-- HTMLinspectoria käytetään validointiin. Kannattaa
+                        vielä varmuuden vuoksi ajaa välillä myös W3C:n validaattori -->
+                      <!-- Sivun validoinnin W3C:n validaattorilla voit tehdä milloin tahansa näppäinyhdistelmällä CTRL+ALT+V -->
+                      <script src="https://appro.mit.jyu.fi/tools/htmlinspector/html-inspector.js"></script>
+                      <script src="https://appro.mit.jyu.fi/tools/validator/validator.js"></script>
+                      <script src="https://appro.mit.jyu.fi/tools/validator/xml-validator.js"></script>
+											      </body>
+</html>
+

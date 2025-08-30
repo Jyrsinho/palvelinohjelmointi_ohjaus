@@ -1,0 +1,33 @@
+ {% extends "layout.html" %}
+ {% block title %} Laskuri {% endblock %}
+ {% block content %}
+		 <h1>Autolaskuri</h1>
+		 {% for u in automerkit %}
+		 <div>{{automerkit[u]["nimi"]}} {{ automerkit[u]["maara"] }}</div>
+		 {% endfor %}
+		
+		 <form action="/" method="GET">
+             {%  for u in automerkit %}
+                 <li> <a href="?{{ parametrit+"&automerkki="+u}}"> {{ automerkit[u]["nimi"]}} </a></li>
+            {% endfor %}
+			 <p><input type="submit" name="painike" value="Lisää auto" /></p>
+			 <p>Lisättävä määrä <input type="number" value="{{lkm}}" name="lkm" /></p>
+			 	<label>Automerkki 
+						  <select name="automerkki">
+							  {% for u in automerkit %}
+							  	{% if u == automerkki %}
+									<option selected="selected" value="{{u}}">{{automerkit[u]["nimi"]}}</option>
+								{% else %}
+									<option value="{{u}}">{{automerkit[u]["nimi"]}}</option>
+								{% endif %}
+								{% endfor %}
+											   	  </select>
+												  	</label>
+			 <input type="hidden" value= "{{automerkit_json | escape}}" name="automerkit_json"/>
+
+		 </form>
+				 <script>
+					 console.log("automerkit:json", {{automerkit_json}});
+					 console.log("Lkm:", {{ lkm}});
+				</script>
+	 {% endblock %}
