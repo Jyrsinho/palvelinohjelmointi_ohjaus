@@ -2,6 +2,8 @@
  {% block title %} Laskuri {% endblock %}
  {% block content %}
 		 <h1>Autolaskuri</h1>
+         <h3>Session - laskuri : {{ session['laskuri'] }}</h3>
+         <h3>Sessiolaskuri + Lisättävän automerkin määrä: {{ session['laskuri'] + lkm }}</h3>
 		 {% for u in automerkit %}
 		 <div>{{automerkit[u]["nimi"]}} {{ automerkit[u]["maara"] }}</div>
 		 {% endfor %}

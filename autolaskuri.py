@@ -1,4 +1,4 @@
-from flask import Flask, request, Response, render_template, make_response, session
+from flask import Flask, request, Response, render_template, make_response, session, redirect, url_for
 import json
 import urllib
 app = Flask(__name__)
@@ -7,9 +7,16 @@ app.config.update(
     SESSION_COOKIE_SAMESITE='Lax',
 )
 
+app.secret_key = b"\x98c\xaf\xf3`q\x8e\x1a\xe3\x91\xf5c\xe9O\xd72\x98EG'N\x1d&\x17"
+
 
 @app.route('/',methods=['GET'])
 def autolaskuri():
+
+    try:
+        session['laskuri'] = session['laskuri'] + 1
+    except:
+        session['laskuri'] = 0
     
     automerkit_oletus = {
             "1": { "nimi": "Tesla", "maara": 0},
@@ -47,3 +54,11 @@ def autolaskuri():
     response = make_response(rendered)
     response.headers['Content-Type'] = 'application/xhtml+xml; charset=utf-8'
     return response
+
+
+@app.route('/nollaa')
+def nollaa():
+    session.pop('laskuri', None)
+    # url_for-metodilla voidaan muodostaa osoite haluttuun funktioon. redirect taas ohjaa suoraan tälle sivulle joten
+    # nollaa-osoite ei tarvitse omaa sisältöä
+    return redirect(url_for('autolaskuri'))
