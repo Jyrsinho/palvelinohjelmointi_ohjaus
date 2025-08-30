@@ -1,0 +1,19 @@
+{% extends "layout.html" %}
+{% block head %}
+	<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}"/>
+{% endblock %}
+{% block title %} Kirjaudu {% endblock %}
+{% block content %}
+    <h1>Kirjaudu</h1>
+    <form action="" method="get">
+        <div class="formkentta">
+            <label for="tunnus">Anna käyttäjätunnus</label>
+            <input type="text" name="tunnus" id="tunnus" required="required"/>
+        </div>
+        <div class="formkentta">
+            <label for="salasana">Anna salasana</label>
+            <input type="text" name="salasana" id="salasana" required="required"/>
+        </div>
+
+    </form>
+{% endblock %}

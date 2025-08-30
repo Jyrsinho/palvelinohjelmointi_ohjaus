@@ -1,0 +1,15 @@
+body {
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    width: 40%;
+
+}
+
+.formkentta {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}

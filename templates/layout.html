@@ -2,7 +2,9 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="fi" lang="fi">
 	  <head>
 		      <title>{% block title %}Mallisivu{% endblock %}</title>
-		        </head>
+
+        {% block head %} {% endblock %}
+      </head>
 			  <body>
 				      <div id="content">
 					            {% block content %}{% endblock %}

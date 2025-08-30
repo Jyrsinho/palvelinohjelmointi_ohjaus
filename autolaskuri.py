@@ -56,6 +56,14 @@ def autolaskuri():
     return response
 
 
+@app.route('/kirjaudu')
+def kirjaudu():
+    rendered = render_template("kirjaudu.html")
+    response = make_response(rendered)
+    response.headers['Content-Type'] = 'application/xhtml+xml; charset=utf-8'
+    return response
+
+
 @app.route('/nollaa')
 def nollaa():
     session.pop('laskuri', None)
