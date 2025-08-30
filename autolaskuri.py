@@ -1,4 +1,7 @@
+from symbol import parameters
+
 from flask import Flask, request, Response, render_template, make_response, session, redirect, url_for
+import hashlib
 import json
 import urllib
 app = Flask(__name__)
@@ -58,7 +61,33 @@ def autolaskuri():
 
 @app.route('/kirjaudu')
 def kirjaudu():
-    rendered = render_template("kirjaudu.html")
+
+    try:
+        kayttajatunnus = request.args.get('tunnus')
+    except:
+        kayttajatunnus = None
+
+    try:
+        salasana = request.args.get('salasana')
+    except:
+        salasana = None
+
+    if salasana and kayttajatunnus:
+        m = hashlib.sha512()
+        avain = u"omasalainenavain"
+        m.update(avain.encode('utf-8'))
+        m.update(salasana.encode('utf-8'))
+        if kayttajatunnus == "ties4080" and m.hexdigest() == ("366e90b5fe29a9d9c1420afa334c4b19c4d63dcd200f424b7a9fe332"
+                                                              "8a352da5818fc03cffa463c2362db3535b612df4eb27df33d4720fbf5"
+                                                              "92964571ad7572e"):
+            # jos kaikki ok niin asetetaan sessioon tieto kirjautumisesta ja ohjataan laskurisivulle
+            session['kirjautunut'] = "ok"
+            return redirect(url_for('autolaskuri'))
+            # jos ei ollut oikea salasana niin pysytään kirjautumissivulla.
+        return render_template('kirjaudu.html')
+
+
+    rendered = render_template("kirjaudu.html" )
     response = make_response(rendered)
     response.headers['Content-Type'] = 'application/xhtml+xml; charset=utf-8'
     return response

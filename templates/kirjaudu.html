@@ -5,7 +5,7 @@
 {% block title %} Kirjaudu {% endblock %}
 {% block content %}
     <h1>Kirjaudu</h1>
-    <form action="" method="get">
+    <form action="/kirjaudu" method="get">
         <div class="formkentta">
             <label for="tunnus">Anna käyttäjätunnus</label>
             <input type="text" name="tunnus" id="tunnus" required="required"/>
@@ -14,6 +14,10 @@
             <label for="salasana">Anna salasana</label>
             <input type="text" name="salasana" id="salasana" required="required"/>
         </div>
-
+        <div class="formkentta">
+            <input type="submit" value="laheta"/>
+        </div>
     </form>
+
+
 {% endblock %}
